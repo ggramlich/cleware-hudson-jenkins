@@ -1,0 +1,20 @@
+{
+  "name": "cleware-hudson-jenkins",
+  "version": "0.0.0",
+  "description": "Cleware Ampel control based on node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Gregor Gramlich",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "dependencies": {
+    "coffee-script": "~1.6.3"
+  }
+}
