@@ -3,3 +3,17 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  div
+    form(action='/lights',method='post')
+      div
+        input(type='checkbox',value='',name='red')
+        label(for='red') Red
+      div
+        input(type='checkbox',value='',name='yellow')
+        label(for='yellow') Yellow
+      div
+        input(type='checkbox',value='',name='green')
+        label(for='green') Green
+      div
+        input(type='submit',value='Go')
