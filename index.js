@@ -1,2 +1,3 @@
 require('coffee-script');
-require('./lib/');
+//require('./lib/');
+require('./express/');
