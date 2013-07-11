@@ -1,8 +1,13 @@
 ###
 Module dependencies.
 ###
+CoolBeans = require 'CoolBeans'
+container = new CoolBeans require '../production-module'
+
+lights = container.get('lights').for 407571
+
 express = require("express")
-routes = require("./routes")
+routes = require("./routes")(lights)
 http = require("http")
 path = require("path")
 app = express()

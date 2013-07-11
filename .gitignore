@@ -1,7 +1,6 @@
+!/index.js
 /.idea/
-/lib/*.js
-/lib/**/*.js
-/express/*.js
-/express/**/*.js
+*.js
+**/*.js
 /node_modules/
 *~
