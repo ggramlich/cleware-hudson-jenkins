@@ -19,7 +19,8 @@
     "coffee-script": "~1.6.3",
     "express": "3.3.1",
     "jade": "*",
-    "CoolBeans": "0.0.9"
+    "CoolBeans": "0.0.9",
+    "restler": "~2.0.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

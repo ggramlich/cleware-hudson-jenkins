@@ -1,6 +1,8 @@
 module.exports =
   os:
     module: 'os'
+  rest:
+    module: 'restler'
   platform:
     factoryBean: 'os'
     factoryMethod: 'platform'
@@ -14,4 +16,7 @@ module.exports =
     autowire: true
   cleware:
     module: 'lib/lights/cleware'
+    autowire: true
+  hudsonClient:
+    module: 'lib/hudsonClient'
     autowire: true
