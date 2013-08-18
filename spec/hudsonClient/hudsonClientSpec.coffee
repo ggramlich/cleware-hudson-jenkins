@@ -4,32 +4,40 @@ sinon = require 'sinon'
 
 describe 'hudsonClient', ->
   JSON = 'Content-Type': 'application/json'
+  SERVER = 'https://myserver'
 
   beforeEach ->
-    @container = new CoolBeans
+    container = new CoolBeans
       nock: module: 'nock'
       rest: module: 'restler'
       hudsonClient:
         module: 'lib/hudsonClient'
         autowire: true
-    @nock = @container.get 'nock'
+
+    nock = container.get 'nock'
+    @nock = nock(SERVER)
+    @hudsonClient = container.get 'hudsonClient'
 
   it 'lists the jobs', (done) ->
-    @nock('https://myserver')
-      .get('/view/All/api/json')
+    @nock.get('/view/All/api/json')
       .reply(200, {jobs: ['a', 'b']}, JSON)
 
-    hudsonClient = @container.get 'hudsonClient'
-    hudsonClient.listJobs 'https://myserver/view/All', (result) ->
+    @hudsonClient(SERVER).listJobs 'All', (result) ->
       expect(result).to.deep.equal ['a', 'b']
       done()
 
   it 'reads the color of a job', (done) ->
-    @nock('https://myserver')
-      .get('/job/myjob/api/json')
+    @nock.get('/job/myjob/api/json')
       .reply(200, {color: 'blue'}, JSON)
 
-    hudsonClient = @container.get 'hudsonClient'
-    hudsonClient.color 'https://myserver', 'myjob', (result) ->
+    @hudsonClient(SERVER).color 'myjob', (result) ->
+      expect(result).to.equal 'blue'
+      done()
+
+  it 'handles trailing / in server url gracefully', (done) ->
+    @nock.get('/job/myjob/api/json')
+      .reply(200, {color: 'blue'}, JSON)
+
+    @hudsonClient(SERVER + '/').color 'myjob', (result) ->
       expect(result).to.equal 'blue'
       done()
