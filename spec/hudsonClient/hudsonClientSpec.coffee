@@ -16,11 +16,19 @@ describe 'hudson client', ->
     @nock = nock(SERVER)
     @hudsonClient = container.get 'hudsonClient'
 
-  it 'lists the jobs', (done) ->
+  it 'lists all jobs', (done) ->
+    @nock.get('/api/json')
+      .reply(200, {jobs: ['a', 'b']}, JSON)
+
+    @hudsonClient(SERVER).listJobs (result) ->
+      expect(result).to.deep.equal ['a', 'b']
+      done()
+
+  it 'lists the jobs in a view', (done) ->
     @nock.get('/view/All/api/json')
       .reply(200, {jobs: ['a', 'b']}, JSON)
 
-    @hudsonClient(SERVER).listJobs 'All', (result) ->
+    @hudsonClient(SERVER).listJobsInView 'All', (result) ->
       expect(result).to.deep.equal ['a', 'b']
       done()
 
