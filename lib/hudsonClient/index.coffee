@@ -1,4 +1,5 @@
 module.exports = (rest) ->
+  # Calls the callback with an array [{"name":"..","url":"..","color":".."}, {...}, ...]
   listJobs: (url, callback) ->
     rest.get(url + '/api/json').on 'success', (res) ->
       callback res.jobs
