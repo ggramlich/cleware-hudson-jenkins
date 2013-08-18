@@ -1,6 +1,6 @@
 {CoolBeans, expect, sinon} = require '../specHelper'
 
-describe 'cliExecutor', ->
+describe 'cli executor', ->
   beforeEach ->
     @child_process = execFile: sinon.spy()
     @container = new CoolBeans

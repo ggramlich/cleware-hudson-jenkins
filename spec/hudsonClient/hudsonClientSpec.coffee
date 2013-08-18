@@ -1,6 +1,6 @@
 {CoolBeans, expect} = require '../specHelper'
 
-describe 'hudsonClient', ->
+describe 'hudson client', ->
   JSON = 'Content-Type': 'application/json'
   SERVER = 'https://myserver'
 
