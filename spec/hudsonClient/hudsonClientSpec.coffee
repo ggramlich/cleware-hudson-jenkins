@@ -1,6 +1,4 @@
-CoolBeans = require 'CoolBeans'
-expect = require('chai').expect
-sinon = require 'sinon'
+{CoolBeans, expect} = require '../specHelper'
 
 describe 'hudsonClient', ->
   JSON = 'Content-Type': 'application/json'

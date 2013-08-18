@@ -1,5 +1,4 @@
-CoolBeans = require 'CoolBeans'
-expect = require('chai').expect
+{CoolBeans, expect} = require '../specHelper'
 
 getCleware = (platform) ->
   container = new CoolBeans
