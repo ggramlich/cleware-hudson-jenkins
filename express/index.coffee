@@ -29,3 +29,23 @@ app.get "/", routes.index
 app.post "/lights", routes.lights
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")
+
+withResponse = (callback) ->
+    (req, res) ->
+      callback()
+      res.set('Access-Control-Allow-Origin', '*');
+      res.set('Access-Control-Allow-Methods', 'GET, POST');
+      res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
+      res.send('OK')
+
+commands = {GRUENAN: -> lights.green on}
+
+app.get '/ampel/GRUENAN', withResponse(-> lights.green on)
+app.get '/ampel/ROTAN', withResponse(-> lights.red on)
+app.get '/ampel/GELBAN', withResponse(-> lights.yellow on)
+app.get '/ampel/GRUENAUS', withResponse(-> lights.green off)
+app.get '/ampel/ROTAUS', withResponse(-> lights.red off)
+app.get '/ampel/GELBAUS', withResponse(-> lights.yellow off)
+app.get '/ampel/ALLEAUS', withResponse(-> lights.all off)
+app.get '/ampel/ALLEAN', withResponse(-> lights.all on)
+app.get '/traffic/:command', -> (req, res) ->
