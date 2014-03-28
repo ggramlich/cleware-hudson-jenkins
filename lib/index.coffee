@@ -1,11 +1,8 @@
 os = require 'os'
-if os.platform() is 'linux'
-  clewareParams = require './lights/cleware_linux'
-else
-  clewareParams = require './lights/cleware_win'
 
-
-lights = require('./lights')(407571, clewareParams)
+cliExecutor = require('./cliExecutor')(require 'child_process')
+cleware = require('./lights/cleware')(os.platform())
+lights = require('./lights')(cleware, cliExecutor).for(407571)
 
 lights.red on, ->
   lights.green on, ->
