@@ -1,8 +1,7 @@
-os = require 'os'
+CoolBeans = require 'CoolBeans'
+container = new CoolBeans require '../production-module'
 
-cliExecutor = require('./cliExecutor')(require 'child_process')
-cleware = require('./lights/cleware')(os.platform())
-lights = require('./lights')(cleware, cliExecutor).for(407571)
+lights = container.get('lights').for 407571
 
 lights.red on, ->
   lights.green on, ->
