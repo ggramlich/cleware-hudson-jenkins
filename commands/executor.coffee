@@ -1,9 +1,7 @@
-os = require 'os'
-async = require 'async'
+CoolBeans = require 'CoolBeans'
+container = new CoolBeans require '../production-module'
 
-cliExecutor = require('../lib/cliExecutor')(require 'child_process')
-cleware = require('../lib/lights/cleware')(os.platform())
-lights = require('../lib/lights')(cleware, cliExecutor).for(407571)
+lights = container.get('lights').for 407571
 
 createCommands = require './test2.1.coffee'
 lightCommand = (light) ->
