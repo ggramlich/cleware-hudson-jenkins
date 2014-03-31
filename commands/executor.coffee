@@ -4,9 +4,9 @@ container = new CoolBeans require '../production-module'
 lights = container.get('lights').for 407571
 
 createCommands = require './test2.1.coffee'
-lightCommand = (light) ->
+lightCommand = (color) ->
   (state, delay) ->
-    command: (callback) -> lights[light] state, callback
+    execute: (callback) -> lights[color] state, callback
     delay: delay
 
 commands = createCommands(
@@ -19,6 +19,6 @@ commands = createCommands(
 execCommand = (index) ->
   unless index >= commands.length
     console.dir index
-    commands[index]().command setTimeout((-> execCommand(index + 1)), commands[index]().delay)
+    commands[index].execute setTimeout((-> execCommand(index + 1)), commands[index].delay)
 
 execCommand(0)
