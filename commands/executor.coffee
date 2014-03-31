@@ -6,7 +6,7 @@ lights = container.get('lights').for 407571
 createCommands = require './test2.1.coffee'
 lightCommand = (color) ->
   (state, delay) ->
-    execute: (delayedCallback) -> lights[color] state, setTimeout(delayedCallback, delay)
+    (delayedCallback) -> lights[color] state, setTimeout(delayedCallback, delay)
 
 commands = createCommands(
   lightCommand 'red'
@@ -15,9 +15,9 @@ commands = createCommands(
   lightCommand 'all'
 )
 
-execCommand = (index) ->
+execCommandAtIndex = (index) ->
   unless index >= commands.length
-    console.dir index
-    commands[index].execute (-> execCommand(index + 1))
+    command = commands[index]
+    command -> execCommandAtIndex index + 1
 
-execCommand(0)
+execCommandAtIndex 0
