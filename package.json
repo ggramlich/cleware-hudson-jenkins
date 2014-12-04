@@ -16,17 +16,17 @@
     }
   ],
   "dependencies": {
-    "coffee-script": "~1.6.3",
-    "express": "3.3.1",
-    "jade": "*",
     "CoolBeans": "0.0.9",
-    "restler": "~2.0.1"
+    "coffee-script": "^1.8",
+    "express": "^3.18.4",
+    "jade": "^1.8",
+    "restler": "^3.2"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-mocha-hack": "~0.1.0",
-    "chai": "~1.7.2",
-    "sinon": "~1.7.3",
-    "nock": "~0.22.1"
+    "chai": "^1.10",
+    "grunt": "0.4.5",
+    "grunt-mocha-hack": "^0.1",
+    "nock": "^0.51",
+    "sinon": "^1.12"
   }
 }
