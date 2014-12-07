@@ -1,5 +1,6 @@
 {
     "serialno": "900920",
+    "server": "https://www.jenkins-ci.org/",
     "type": "job",
-    "name": "job1"
+    "name": "tools_maven-hpi-plugin-maven-2.x"
 }
