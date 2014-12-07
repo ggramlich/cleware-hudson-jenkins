@@ -1,2 +1,2 @@
-module.exports = (nconf) ->
-  nconf.file "#{__dirname}/../../cleware-hudson.json"
+module.exports = (nconf, configFile) ->
+  nconf.file configFile.path

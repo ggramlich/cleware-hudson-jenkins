@@ -27,3 +27,5 @@ module.exports =
     autowire: true
   nconf:
     module: 'nconf'
+  configFile:
+    properties: path: "#{__dirname}/cleware-hudson.json"
