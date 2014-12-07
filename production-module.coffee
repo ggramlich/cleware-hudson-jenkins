@@ -8,6 +8,8 @@ module.exports =
     factoryMethod: 'platform'
   child_process:
     module: 'child_process'
+  _:
+    module: 'lodash'
   cliExecutor:
     module: 'lib/cliExecutor'
     autowire: true

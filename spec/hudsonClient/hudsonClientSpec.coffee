@@ -8,6 +8,7 @@ describe 'hudson client', ->
     container = new CoolBeans
       nock: module: 'nock'
       rest: module: 'restler'
+      _: module: 'lodash'
       hudsonClient:
         module: 'lib/hudsonClient'
         autowire: true
@@ -33,17 +34,30 @@ describe 'hudson client', ->
       done()
 
   it 'reads the color of a job', (done) ->
-    @nock.get('/job/myjob/api/json')
-      .reply(200, {color: 'blue'}, JSON)
+    @nock.get('/job/myjob/api/json?tree=name,color')
+      .reply(200, {name: 'myjob', color: 'blue'}, JSON)
 
-    @hudsonClient(SERVER).color 'myjob', (result) ->
+    @hudsonClient(SERVER).colorOfJob 'myjob', (result) ->
       expect(result).to.equal 'blue'
       done()
 
   it 'handles trailing / in server url gracefully', (done) ->
-    @nock.get('/job/myjob/api/json')
-      .reply(200, {color: 'blue'}, JSON)
+    @nock.get('/job/myjob/api/json?tree=name,color')
+      .reply(200, {name: 'myjob', color: 'blue'}, JSON)
 
-    @hudsonClient(SERVER + '/').color 'myjob', (result) ->
+    @hudsonClient(SERVER + '/').colorOfJob 'myjob', (result) ->
       expect(result).to.equal 'blue'
       done()
+
+  it 'reads the color of jobs in a view', (done) ->
+    jobsResponse = jobs: [
+      {name: 'job1', color: 'blue'}
+      {name: 'job2', color: 'disabled'}
+    ]
+    @nock.get('/view/All/api/json?tree=jobs[name,color]')
+    .reply(200, jobsResponse, JSON)
+
+    @hudsonClient(SERVER).colorsInView 'All', (result) ->
+      expect(result).to.deep.equal {job1: 'blue', job2: 'disabled'}
+      done()
+

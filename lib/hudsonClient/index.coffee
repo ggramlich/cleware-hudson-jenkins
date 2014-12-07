@@ -1,4 +1,4 @@
-module.exports = (rest) ->
+module.exports = (rest, _) ->
   appendIfMissing = (string, suffix) ->
     return string if string.slice(-suffix.length) is suffix
     "#{string}#{suffix}"
@@ -16,6 +16,11 @@ module.exports = (rest) ->
       rest.get("#{server}api/json").on 'success', (res) ->
         callback res.jobs
 
-    color: (job, callback) ->
-      rest.get("#{server}job/#{job}/api/json").on 'success', (res) ->
+    colorOfJob: (job, callback) ->
+      rest.get("#{server}job/#{job}/api/json?tree=name,color").on 'success', (res) ->
         callback res.color
+
+    colorsInView: (view, callback) ->
+      rest.get("#{server}view/#{view}/api/json?tree=jobs[name,color]").on 'success', (res) ->
+        colorsInView = _.mapValues(_.indexBy(res.jobs, 'name'), 'color')
+        callback colorsInView

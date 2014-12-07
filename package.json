@@ -20,6 +20,7 @@
     "coffee-script": "^1.8",
     "express": "^3.18.4",
     "jade": "^1.8",
+    "lodash": "^2.4.1",
     "restler": "^3.2"
   },
   "devDependencies": {
