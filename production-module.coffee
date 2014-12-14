@@ -22,6 +22,9 @@ module.exports =
   hudsonClient:
     module: 'lib/hudsonClient'
     autowire: true
+  hudsonLights:
+    module: 'lib/hudsonLights'
+    autowire: true
   conf:
     module: 'lib/conf'
     autowire: true
