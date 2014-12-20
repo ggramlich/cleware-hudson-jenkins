@@ -36,6 +36,13 @@ describe 'lights', ->
 
     expect(@cliExecutor.calledWith @commandDummy, @callback).to.be.true
 
+  it 'should call the cliExecutor with the cleware command for states', ->
+    @cleware.command.withArgs(123, {0: on, 1: off, 2: on}).returns @commandDummy
+
+    @lights.for(123).states {red: on, yellow: off, green: on}, @callback
+
+    expect(@cliExecutor.calledWith @commandDummy, @callback).to.be.true
+
   it 'should call the cliExecutor with the cleware command for all', ->
     commandDummyRed = ->
     commandDummyYellow = ->
