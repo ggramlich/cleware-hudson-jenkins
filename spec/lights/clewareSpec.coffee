@@ -26,6 +26,13 @@ describe 'linux cleware', ->
       args: [ '-d', '123', '-c', '1', '-as', '2', '0' ]
     }
 
+  it 'should create the correct command for color-states', ->
+    command = @cleware.command(123, {0: off, 1: on, 2: on})
+    expect(command).to.deep.equal {
+      command: 'clewarecontrol',
+      args: [ '-d', '123', '-c', '1', '-as', '0', '0', '-as', '1', '1', '-as', '2', '1' ]
+    }
+
 describe 'windows cleware', ->
   beforeEach ->
     @cleware = getCleware 'win32'
@@ -42,4 +49,11 @@ describe 'windows cleware', ->
     expect(command).to.deep.equal {
       command: 'USBswitchCmd.exe',
       args: [ '-n', '123', '0', '-#', '2' ]
+    }
+
+  it 'should create the correct command for color-states', ->
+    command = @cleware.command(123, {0: off, 1: on, 2: on})
+    expect(command).to.deep.equal {
+      command: 'USBswitchCmd.exe',
+      args: [ '-n', '123', 'O', 'Y', 'G' ]
     }
