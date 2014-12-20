@@ -12,21 +12,14 @@ module.exports = (hudsonClient, lights, conf, _, normalizeColors) ->
 
   hudson = hudsonClient(server)
 
-  if type is 'job'
-    job = conf.get 'name'
-    getColors = (callback) ->
-      hudson.colorOfJob job, callback
-  else
-    view = conf.get 'name'
-    getColors = (callback) ->
-      hudson.colorsInView view, callback
-
-  updateColors = (colors) ->
-    currentColors = normalizeColors colors
+  getColors = if type is 'job' then hudson.colorOfJob else hudson.colorsInView
+  updateColors = (callback = ->) ->
+    getColors (conf.get 'name'), (colors) ->
+      currentColors = normalizeColors colors
+      callback()
 
   updateLights = ->
     console.dir currentColors
-    console.log blinkState
 
     commands = for color, value of currentColors
       onOff = if value is 'a' then blinkState else value
@@ -48,7 +41,5 @@ module.exports = (hudsonClient, lights, conf, _, normalizeColors) ->
     runCommand(0)
 
   start: ->
-    setInterval (-> getColors updateColors), REQUEST_HUDSON_INTERVAL * 1000
-    getColors (colors) ->
-      updateColors colors
-      updateLights()
+    setInterval updateColors, REQUEST_HUDSON_INTERVAL * 1000
+    updateColors updateLights
