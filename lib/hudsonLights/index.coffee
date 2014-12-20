@@ -2,7 +2,6 @@
 REQUEST_HUDSON_INTERVAL = 20
 
 currentColors = {}
-lastLights = {}
 blinkState = off
 
 module.exports = (hudsonClient, lights, conf, _, normalizeColors) ->
@@ -21,24 +20,13 @@ module.exports = (hudsonClient, lights, conf, _, normalizeColors) ->
   updateLights = ->
     console.dir currentColors
 
-    commands = for color, value of currentColors
-      onOff = if value is 'a' then blinkState else value
-      if (not lastLights[color]? or lastLights[color] isnt onOff)
-        do (onOff, color) ->
-          (callback) ->
-            lastLights[color] = onOff
-            lightsControl[color] onOff, callback
-      else (callback) -> callback()
+    colorStates = {}
+    for color, value of currentColors
+      colorStates[color] = if value is 'a' then blinkState else value
 
-    commands.push ->
+    lightsControl.states colorStates, ->
       blinkState = not blinkState
-      setTimeout updateLights, 800
-
-    runCommand = (index) ->
-      # if running on the last command, the callback is ignored.
-      commands[index](-> runCommand(index + 1))
-
-    runCommand(0)
+      setTimeout updateLights, 500
 
   start: ->
     setInterval updateColors, REQUEST_HUDSON_INTERVAL * 1000
