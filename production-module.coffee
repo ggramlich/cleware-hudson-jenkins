@@ -25,6 +25,9 @@ module.exports =
   hudsonLights:
     module: 'lib/hudsonLights'
     autowire: true
+  normalizeColors:
+    module: 'lib/hudsonLights/normalizeColors'
+    autowire: true
   conf:
     module: 'lib/conf'
     autowire: true
