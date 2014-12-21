@@ -1,4 +1,3 @@
 require('coffee-script/register');
-//require('./lib/');
-//require('./express/');
-require('./blub');
+require('./lib/');
+//require('./blub');
