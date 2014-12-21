@@ -1,5 +1,6 @@
-# interval in seconds
-REQUEST_HUDSON_INTERVAL = 20
+# intervals in milliseconds
+REQUEST_HUDSON_INTERVAL = 30000
+BLINK_INTERVAL = 1000
 
 currentColors = {}
 blinkState = off
@@ -26,8 +27,8 @@ module.exports = (hudsonClient, lights, conf, _, normalizeColors) ->
 
     lightsControl.states colorStates, ->
       blinkState = not blinkState
-      setTimeout updateLights, 500
+      setTimeout updateLights, BLINK_INTERVAL
 
   start: ->
-    setInterval updateColors, REQUEST_HUDSON_INTERVAL * 1000
+    setInterval updateColors, REQUEST_HUDSON_INTERVAL
     updateColors updateLights
