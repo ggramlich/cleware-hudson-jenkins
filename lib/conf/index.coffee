@@ -1,2 +1,2 @@
 module.exports = (nconf, configFile) ->
-  nconf.file configFile.path
+  nconf.argv().env().file configFile.path
